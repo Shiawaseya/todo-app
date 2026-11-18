@@ -1,0 +1,516 @@
+/* /*
+ Home.css — unified mobile-first styles for Ionic components used on the Home page
+ Goals: consistent spacing, rounded surfaces, readable typography, safe-area awareness,
+ subtle elevation and a polished tab-bar for mobile apps.
+ FIXED: Uses CSS variables for dark mode support instead of hardcoded colors
+*/
+
+/* -------------------------------------------------------
+    LIGHT MODE — DEFAULT
+--------------------------------------------------------*/
+:root {
+  /* Base colors */
+  --ion-background-color: #ffffff;
+  --ion-text-color: #111111;
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-contrast: #ffffff;
+  
+  /* --- 💡 FIX: ADD RGB VARIABLES FOR SUCCESS AND DANGER --- */
+  --ion-color-success: #2dd36f;
+  --ion-color-success-rgb: 45, 211, 111;
+
+  --ion-color-danger: #eb445a;
+  --ion-color-danger-rgb: 235, 68, 90;
+  /* -------------------------------------------------- */
+
+  /* Components */
+  --ion-item-background: #ffffff;
+  --ion-card-background: #ffffff;
+
+  /* Your vars */
+  --hp-padding: 12px;
+  --hp-gutter: 16px;
+  --hp-radius: 12px;
+  --hp-surface: #f7f7f8;
+  --hp-card-bg: #ffffff;
+  --hp-muted: #6b7280;
+
+  --hp-tabbar-height: 56px;
+  --hp-icon-size: 20px;
+  --hp-label-size: 12px;
+}
+
+/* -------------------------------------------------------
+    DARK MODE — ONLY WHEN USER OR SYSTEM ENABLES IT
+--------------------------------------------------------*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #0f0f0f;
+    --ion-text-color: #f4f4f4;
+    --ion-color-primary: #4c8dff;
+    --ion-color-primary-contrast: #ffffff;
+
+    /* --- 🌙 FIX: ADD RGB VARIABLES FOR SUCCESS AND DANGER --- */
+    --ion-color-success: #2fbc70; /* slightly adjusted for dark mode visibility */
+    --ion-color-success-rgb: 47, 188, 112;
+
+    --ion-color-danger: #cc3a4c; /* slightly adjusted for dark mode visibility */
+    --ion-color-danger-rgb: 204, 58, 76;
+    /* -------------------------------------------------- */
+
+    --ion-item-background: #1a1a1a;
+    --ion-card-background: #1a1a1a;
+
+    /* your vars adjusted */
+    --hp-surface: #1a1a1a;
+    --hp-card-bg: #1a1a1a;
+    --hp-muted: #a1a1a1;
+  }
+}
+
+/* Use CSS variables for text color instead of hardcoded dark color */
+/* Make text visible everywhere with proper dark mode support */
+ion-label,
+ion-text,
+ion-item,
+ion-segment-button,
+ion-segment-button::part(native) {
+  color: var(--ion-text-color) !important;
+}
+
+/* Base app/page adjustments to respect device safe areas and center content */
+ion-app,
+ion-page,
+ion-content {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ensure content doesn't overlap system UI on modern devices */
+ion-page {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Cards — primary surface for grouped content */
+ion-card {
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  border: 2px solid rgba(16, 24, 40, 0.04);
+  border-radius: var(--hp-radius);
+  background-color: var(--hp-card-bg);
+  margin: 0 0 var(--hp-gutter) 0;
+  padding: calc(var(--hp-padding) + 2px);
+  transition: box-shadow 0.12s ease-in-out, transform 0.08s ease-in-out;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ion-card:active {
+  transform: translateY(1px);
+}
+
+/* Header — light and content-aware */
+ion-header {
+  box-shadow: none;
+  padding-left: var(--hp-padding);
+  padding-right: var(--hp-padding);
+  background: transparent;
+}
+
+ion-toolbar {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+/* Accordions — keep visual language consistent with cards */
+ion-accordion-group {
+  padding: var(--hp-padding);
+  margin-bottom: var(--hp-gutter);
+}
+
+ion-accordion {
+  --background: var(--hp-card-bg);
+  border-radius: var(--hp-radius);
+  margin-bottom: 8px;
+  overflow: hidden; /* ensures rounded corners apply to both header and content */
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+}
+
+ion-accordion ion-item[slot="header"] {
+  --background: transparent; /* header inherits the accordion background */
+  --inner-padding-start: var(--hp-padding);
+  --inner-padding-end: var(--hp-padding);
+  border-radius: 0; /* let the parent accordion handle corners */
+}
+
+ion-accordion::part(header) {
+  background: transparent;
+  font-weight: 600;
+  color: var(--ion-color-primary-contrast, #111827);
+}
+
+ion-accordion::part(content) {
+  background: transparent;
+  padding: var(--hp-padding);
+}
+
+/* Lists and items — comfortable touch targets */
+ion-list {
+  --ion-background-color: transparent;
+  margin: 0;
+}
+
+ion-item {
+  --border-color: rgba(15, 23, 42, 0.04);
+  --background: transparent;
+  --min-height: 44px; /* accessible touch target */
+}
+
+ion-label {
+  font-size: 15px;
+  color: var(--ion-text-color);
+}
+
+ion-note,
+.muted {
+  color: var(--hp-muted);
+  font-size: 13px;
+}
+
+/* Tab bar — subtle elevated surface and roomy touch targets */
+ion-tab-bar {
+  height: var(--hp-tabbar-height);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0) / 2);
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(16, 24, 40, 0.04);
+  box-shadow: 0 -6px 18px rgba(15, 23, 42, 0.04);
+  backdrop-filter: blur(6px);
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-tab-bar {
+    background: rgba(15, 15, 15, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+ion-tab-button {
+  --color-selected: var(--ion-color-primary, #3880ff);
+  --color: rgba(31, 41, 55, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-tab-button {
+    --color: rgba(200, 200, 200, 0.7);
+  }
+}
+
+ion-tab-button ion-icon {
+  font-size: var(--hp-icon-size);
+}
+
+ion-tab-button ion-label {
+  font-size: var(--hp-label-size);
+}
+
+/* Small tweaks for page content alignment */
+.ion-padding,
+.page-content {
+  padding-left: var(--hp-padding);
+  padding-right: var(--hp-padding);
+}
+
+/* Responsive: keep content narrow on large screens */
+@media (min-width: 700px) {
+  ion-card {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ion-card,
+  ion-accordion {
+    transition: none !important;
+  }
+}
+
+/* Utility small helpers */
+.hp-centered {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* preserve existing targeted overrides if consumers rely on them */
+/* (kept minimal to avoid fighting Ionic's internal styles) */
+
+/* ---------------------------------------------------------------------------
+   Add Task Modal styles (scoped via Home.css)
+   These target the modal structure used by Ionic when opened from the Home page.
+   They follow the same --hp-* variables so spacing, radii and colors match.
+   ------------------------------------------------------------------------- */
+
+ion-modal {
+  /* gentle default so any modal in this page inherits rounded corners */
+  --border-radius: var(--hp-radius);
+}
+
+ion-modal .modal-wrapper {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: calc(var(--hp-radius) - 2px);
+  overflow: hidden;
+  background: var(--ion-background-color, transparent);
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
+}
+
+ion-modal .modal-page {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Toolbars inside modals — match the page paddings */
+ion-modal ion-toolbar {
+  --padding-start: var(--hp-padding);
+  --padding-end: var(--hp-padding);
+}
+
+/* The AddTask component uses .ion-padding on the inner wrapper — style that */
+ion-modal .ion-padding {
+  padding: var(--hp-padding) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Footer toolbar inside modal */
+ion-modal ion-footer ion-toolbar {
+  --padding-start: var(--hp-padding);
+  --padding-end: var(--hp-padding);
+  border-top: 1px solid rgba(16, 24, 40, 0.04);
+  background: transparent;
+}
+
+/* Block action button in modal */
+ion-modal ion-button[expand="block"] {
+  --border-radius: calc(var(--hp-radius) - 4px);
+  height: 44px;
+  font-weight: 600;
+}
+
+/* helper for icons used in modal header buttons */
+ion-modal ion-buttons ion-button ion-icon {
+  font-size: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ion-modal * {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Default styles for additional Ionic components to match the Home page theme
+   These use the same variables (--hp-*) so the look stays consistent across
+   cards, lists, forms, buttons, chips, badges and toggles.
+   Mobile-first, minimal specificity so Ionic internals still work.
+   ------------------------------------------------------------------------- */
+
+/* Form controls (inputs, textareas, selects, search/datetime) */
+ion-input,
+ion-textarea,
+ion-select,
+ion-datetime,
+ion-searchbar {
+  --padding-start: var(--hp-padding);
+  --padding-end: var(--hp-padding);
+  --border-radius: calc(var(--hp-radius) - 4px);
+  --background: rgba(255, 255, 255, 0.02);
+  --placeholder-color: var(--hp-muted);
+  --color: var(--ion-text-color);
+  display: block;
+  width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-input,
+  ion-textarea,
+  ion-select,
+  ion-datetime,
+  ion-searchbar {
+    --background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Some Ionic controls expose parts for the native input element. Apply gentle padding. */
+ion-input::part(native),
+ion-textarea::part(native),
+ion-searchbar::part(native) {
+  padding: calc(var(--hp-padding) - 2px);
+  border-radius: calc(var(--hp-radius) - 4px);
+  background: transparent;
+  color: var(--ion-text-color);
+}
+
+/* Buttons */
+ion-button {
+  --border-radius: calc(var(--hp-radius) - 4px);
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --box-shadow: 0 6px 14px rgba(16, 24, 40, 0.04);
+  height: 44px;
+  font-weight: 600;
+}
+
+ion-button ion-icon {
+  margin-right: 8px;
+}
+
+/* Small / outline variants spacing */
+ion-button[size="small"] {
+  height: 36px;
+  font-size: 13px;
+}
+
+/* Chips and badges */
+ion-chip {
+  --background: var(--hp-surface);
+  border-radius: 999px;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 28px;
+  color: var(--ion-text-color);
+}
+
+ion-badge {
+  --background: var(--hp-surface);
+  color: var(--ion-color-primary, #3880ff);
+  font-weight: 600;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Avatars, thumbnails */
+ion-avatar,
+ion-thumbnail {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Toggles, checkboxes, radios — use primary color and accessible sizing */
+ion-toggle {
+  --handle-background: #fff;
+  --background: rgba(16, 24, 40, 0.06);
+  --active-background: var(--ion-color-primary, #3880ff);
+  --width: 48px;
+  --height: 28px;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toggle {
+    --handle-background: #1a1a1a;
+    --background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+ion-checkbox,
+ion-radio {
+  --size: 20px;
+}
+
+/* FAB — lifted and positioned above tab bar with safe-area support */
+ion-fab {
+  --background: var(--ion-color-primary, #3880ff);
+  --color: #fff;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.12);
+}
+.fab-safe {
+  --padding-bottom: 70px; /* match your footer height */
+}
+
+/* Small utility for form labels/headings used by components */
+.hp-label-strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ion-text-color);
+}
+
+/* Keep defaults friendly to dark mode by leveraging Ionic tokens where present */
+@media (prefers-color-scheme: dark) {
+  ion-card,
+  ion-chip,
+  ion-badge {
+    background: var(--ion-color-dark-shade, #111218);
+  }
+}
+
+ion-segment {
+  --background: var(--ion-color-light);
+  padding: 6px;
+  border-radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-segment {
+    --background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+ion-segment-button {
+  --color: var(--ion-color-dark);
+  font-weight: 600;
+  border-radius: 10px;
+  min-height: 36px;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-segment-button {
+    --color: var(--ion-text-color);
+  }
+}
+
+/* Activated state */
+ion-segment-button.ion-activated {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+}
+
+/* Calendar badges used by interactive-calendar.tsx */
+.cal-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+.cal-badge {
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 0 6px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cal-badge--scheduled {
+  background-color: #10B981; /* green */
+}
+.cal-badge--event {
+  background-color: #F97316; /* orange */
+}
+.cal-badge--due {
+  background-color: #EF4444; /* red */
+}
+

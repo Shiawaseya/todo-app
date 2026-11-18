@@ -12,23 +12,28 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@capacitor/android": "^8.0.0",
     "@capacitor/app": "7.1.0",
-    "@capacitor/core": "7.4.4",
+    "@capacitor/core": "^8.0.0",
     "@capacitor/haptics": "7.0.2",
-    "@capacitor/keyboard": "7.0.3",
+    "@capacitor/keyboard": "^8.0.0",
+    "@capacitor/local-notifications": "^8.0.0",
     "@capacitor/status-bar": "7.0.3",
     "@ionic/react": "^8.5.0",
     "@ionic/react-router": "^8.5.0",
+    "@ionic/storage": "^4.0.0",
+    "@tanstack/react-query": "^5.90.6",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "ionicons": "^7.4.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4"
+    "react-router-dom": "^5.3.4",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@capacitor/cli": "7.4.4",
+    "@capacitor/cli": "^8.0.0",
     "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^16.2.0",
